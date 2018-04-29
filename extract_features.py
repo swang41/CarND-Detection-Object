@@ -30,6 +30,20 @@ def extract_color_features(img, cspace = 'RGB', spatial_size=(32, 32),
         features.append(np.concatenate((spatial_features, hist_features)))
     return features
 
+def extract_color_features(images, cspace = 'RGB', spatial_size=(32, 32),
+                        hist_bins=32, hist_range=(0, 256)):
+    features = []
+    for path in images:
+        img = cv2.imread(path)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        if cspace != 'RGB':
+            exec("%s = %s" % ('img','cv2.cvtColor(img, cv2.COLOR_RGB2' + cspace + ')'))
+        spatial_features = bin_spatial(img, spatial_size)
+        hist_features = color_hist(img, hist_bins, hist_range)
+        features.append(np.concatenate((spatial_features, hist_features)))
+    return features
+
+
 def get_hog_features(img, orient, pix_per_cell, cell_per_block,
                         vis=False, feature_vec=True):
     if vis:
@@ -44,19 +58,6 @@ def get_hog_features(img, orient, pix_per_cell, cell_per_block,
                                   transform_sqrt=True,
                                   visualise=vis, feature_vector=feature_vec)
         return features
-
-def extract_color_features(images, cspace = 'RGB', spatial_size=(32, 32),
-                        hist_bins=32, hist_range=(0, 256)):
-    features = []
-    for path in images:
-        img = cv2.imread(path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        if cspace != 'RGB':
-            exec("%s = %s" % ('img','cv2.cvtColor(img, cv2.COLOR_RGB2' + cspace + ')'))
-        spatial_features = bin_spatial(img, spatial_size)
-        hist_features = color_hist(img, hist_bins, hist_range)
-        features.append(np.concatenate((spatial_features, hist_features)))
-    return features
 
 
 def extract_hog_features(imgs, cspace='RGB', orient=9,
