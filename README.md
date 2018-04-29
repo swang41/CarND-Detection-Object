@@ -40,7 +40,7 @@ Here is an example using the `YCrCb` color space and HOG parameters of `orientat
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters and settle with the following `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)` which tends to give better result on testing time.
+I tried various combinations of parameters and settle with the following `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)` which tends to give better result in the testing time.
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
@@ -57,7 +57,7 @@ I decided to perform the search only in the specified area with multiscale. The 
 
 Ultimately I searched on two scales using YCrCb 3-channel HOG features in the feature vector, which provided a nice result.  Here are some example images:
 
-![alt text][image4]
+![alt text][image3]
 ---
 
 ### Video Implementation
