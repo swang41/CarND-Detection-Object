@@ -87,3 +87,15 @@ def extract_hog_features(imgs, cspace='RGB', orient=9,
         features.append(hog_features)
     # Return list of feature vectors
     return features
+
+def extract_f(paths, hog_params=None):
+    
+    hog_features = extract_hog_features(paths,
+                                        cspace=hog_params['cspace'], 
+                                        orient=hog_params['orient'],
+                                        pix_per_cell=hog_params['pix_per_cell'],
+                                        cell_per_block=hog_params['cell_per_block'], 
+                                        hog_channel=hog_params['hog_channel'])
+    hog_features = np.array(hog_features).astype(np.float64)
+        
+    return hog_features
