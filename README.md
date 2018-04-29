@@ -50,7 +50,7 @@ First I principle component analysis to do the feature selection. Then I trained
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to perform the search only in the specified area with multiscale. The scales I used are 1.25 and 1.5. The code for this step is contained in fourteenth code cells.
+I decided to perform the search only in the specified area with multiscale. The scales I used are 1.25 and 1.5. The code for this step is contained in fourteenth code cells of the IPython notebook.
 
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
@@ -68,7 +68,7 @@ Here's a [link to my video result](./out_clip_25_multi.mp4)
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected. The code for this step is contained in the code cells thirteenth and fifteenth of IPython notebook.
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
@@ -87,5 +87,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+In the very begining I have use hog and color features, but while I was using color features the model tended to give more false positive prediction. I guess this might be caused by the the color features both spatial and histogram aren't robust to various size and direction. In the end, I chose to keep only hog features for simplicity and apply PCA to select 500 features out of 5000+ features. Along the way of dealing with false positive, I also higher the probablity to make model less likely to predict car.
+
+My pipeline will be likely fail when the input image with different scale or image with objects which has similar shape as car. In order to make it more rubust, substitubing the sliding windows scheme with more advance scheme like region of interest pooling and extracting features with pretrain deep learning model.
 
