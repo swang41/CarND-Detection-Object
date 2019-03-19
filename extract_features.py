@@ -19,17 +19,6 @@ def color_hist(img, nbins = 32, bins_range = (0, 255)):
     features = np.concatenate((channel1_hist[0], channel2_hist[0], channel3_hist[0]))
     return features
 
-def extract_color_features(img, cspace = 'RGB', spatial_size=(32, 32),
-                        hist_bins=32, hist_range=(0, 256)):
-    for img in images:
-        img = mpimg.imread(path)
-        if cspace != 'RGB':
-            exec("%s = %s" % ('img','cv2.cvtColor(img, cv2.COLOR_RGB2' + cspace + ')'))
-        spatial_features = bin_spatial(img, spatial_size)
-        hist_features = color_hist(img, hist_bins, hist_range)
-        features.append(np.concatenate((spatial_features, hist_features)))
-    return features
-
 def extract_color_features(images, cspace = 'RGB', spatial_size=(32, 32),
                         hist_bins=32, hist_range=(0, 256)):
     features = []
